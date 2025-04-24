@@ -78,7 +78,7 @@ export function ConnectForm({
         console.log(data);
         toast({
           title: "Your request has been submitted",
-          className: "bg-green-600 text-white",
+          className: "bg-green-600 text-white bottom-0",
         });
         setIsConnected(true);
       })

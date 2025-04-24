@@ -116,23 +116,21 @@ export default function OnboardingSidebar({
         .join(" ");
 
       // Check if any keyword is in the combined message text
-      return keywords.some((keyword) => allMessages.includes(keyword.toLowerCase()));
+      return keywords.some((keyword) =>
+        allMessages.includes(keyword.toLowerCase())
+      );
     };
 
     switch (stepId) {
       case "connect":
         return hasMessage([
-          "pulling provider directory",
-          "active provider found",
-          "provider found",
-          "connection established",
+          "Syncing customer schema, timezone, and timezone offset",
+          "Connection established with CRM #037",
         ]);
       case "import":
         return hasMessage([
-          "segmenting records",
+          "Detecting customer record format...",
           "database imported",
-          "1441 patient",
-          "patient database",
         ]);
       case "scan":
         // For scan specifically, check all messages individually for each keyword
@@ -192,24 +190,29 @@ export default function OnboardingSidebar({
 
     const lastMessage =
       processMessages[processMessages.length - 1]?.message.toLowerCase() || "";
-    
+
     console.log("Processing completion signals. Last message:", lastMessage);
     console.log("Current step:", currentStep);
-    console.log("All messages:", processMessages.map(m => m.message.toLowerCase()));
+    console.log(
+      "All messages:",
+      processMessages.map((m) => m.message.toLowerCase())
+    );
 
     // Check for completion signals in the most recent message
     setSteps((prevSteps) => {
       const newSteps = [...prevSteps];
-      
+
       // Look for scan completion messages specifically
-      const allMessagesText = processMessages.map(m => m.message.toLowerCase()).join(" ");
-      
+      const allMessagesText = processMessages
+        .map((m) => m.message.toLowerCase())
+        .join(" ");
+
       // Check for scan step completion signals
       if (
-        (allMessagesText.includes("reactivation list") || 
-         allMessagesText.includes("936 patients") ||
-         allMessagesText.includes("final reactivation") ||
-         allMessagesText.includes("aggregating spend")) &&
+        (allMessagesText.includes("reactivation list") ||
+          allMessagesText.includes("936 patients") ||
+          allMessagesText.includes("final reactivation") ||
+          allMessagesText.includes("aggregating spend")) &&
         currentStep === "identify" &&
         !newSteps[2].isCompleted
       ) {
@@ -238,7 +241,7 @@ export default function OnboardingSidebar({
   useEffect(() => {
     // If we're on the identify step, scan should be completed
     if (currentStep === "identify") {
-      setSteps(prevSteps => {
+      setSteps((prevSteps) => {
         // Only update if scan isn't already completed
         if (!prevSteps[2].isCompleted) {
           console.log("FORCING SCAN COMPLETION because we're on identify step");
