@@ -22,7 +22,7 @@ interface OnboardingSidebarProps {
 const defaultOnboardingSteps: OnboardingStep[] = [
   {
     id: "connect",
-    title: "Upload Your Customers List",
+    title: "Upload List Of Customers",
     isActive: true,
     isCompleted: false,
   },

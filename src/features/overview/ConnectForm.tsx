@@ -164,7 +164,7 @@ export function ConnectForm({
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="you@company.com"
+                        placeholder="your@company.com"
                         {...field}
                         className="placeholder:font-light text-[#ADAEBC]"
                       />
